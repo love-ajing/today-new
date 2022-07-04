@@ -64,8 +64,13 @@ export default {
         if (results.length) {
           // 如果有，则更新获取下一个数据的页码
           this.page++;
-        } else {
-          // 如果没有，则将加载状态 finished 设置为结束
+        }else{
+           // 如果没有，则将加载状态 finished 设置为结束
+          this.finished = true;
+        }
+        // 如果数据超过100就显示没有更多了
+        if (this.list.length >= 100) {
+      
           this.finished = true;
         }
       } catch (err) {

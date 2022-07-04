@@ -13,6 +13,7 @@
         @search="onSearch"
         @cancel="onCancel"
         @focus="isResultShow = false"
+        autofocus
       />
     </form>
     <!-- /搜索栏 -->
@@ -56,7 +57,7 @@ export default {
   props: {},
   data() {
     return {
-      searchText: "",
+      searchText: "",//搜索关键字，控制搜索控制组件SearchSuggestion显示隐藏
       isResultShow: false, // 控制搜索结果的展示
       searchHistories: getItem("TOUTIAO_SEARCH_HISTORIES") || [], // 搜索的历史记录数据
     };
@@ -82,6 +83,9 @@ export default {
       const index = this.searchHistories.indexOf(val);
       if (index !== -1) {
         this.searchHistories.splice(index, 1);
+      }
+      if(this.searchHistories.length>=10){
+        this.searchHistories.splice(9,1)
       }
       this.searchHistories.unshift(val);
 

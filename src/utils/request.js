@@ -5,6 +5,19 @@ import axios from "axios"
 import store from '@/store'
 const request = axios.create({
   baseURL: "http://api-toutiao-web.itheima.net/" // 基础路径
+  ,
+  // 自定义后端返回的原始数据
+  // data: 后端返回的原始数据，说白了就是 JSON 格式的字符串
+  transformResponse: [function (data) {
+    // try {
+    //   return JSONBig.parse(data)
+    // } catch (err) {
+    //   return data
+    // }
+
+    // axios 默认会在内部这样来处理后端返回的数据
+    return JSON.parse(data)
+  }]
 })
 
 // https://github.com/axios/axios#interceptors
@@ -36,7 +49,7 @@ request.interceptors.response.use(
   },
   // 响应失败进入第2个函数，该函数的参数是错误对象
   async function (error) {
-   
+
     // 如果响应码是 401 ，则请求获取新的 token
 
     // 响应拦截器中的 error 就是那个响应的错误对象

@@ -8,11 +8,6 @@
     >
       <div slot="title" v-html="highlight(text)"></div>
     </van-cell>
-    <!-- 双花括号绑定会直接输出纯文本内容 -->
-    <!-- <div>{{ htmlStr }}</div> -->
-
-    <!-- 使用 v-html 指令可以绑定渲染带有 HTML 标签的字符串 -->
-    <!-- <div v-html="htmlStr"></div> -->
   </div>
 </template>
 
@@ -34,7 +29,6 @@ export default {
   data() {
     return {
       suggestions: [], // 联想建议数据列表
-      htmlStr: 'Hello <span style="color: red">World</span>',
     };
   },
   computed: {},
@@ -51,6 +45,7 @@ export default {
       // 参数2：延迟时间，单位是毫秒
       // 返回值：防抖之后的函数
       handler: debounce(function (value) {
+        console.log(value)
         this.loadSearchSuggestions(value);
       }, 200),
       // handler (value) {
@@ -72,6 +67,7 @@ export default {
     },
 
     highlight(text) {
+      console.log(text)
       const highlightStr = `<span class="active">${this.searchText}</span>`;
 
       // 正则表达式 // 中间的内容都会当作匹配字符来使用，而不是数据变量
